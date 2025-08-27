@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>¡Feliz Cumple, amor!</title>
+  <style>
+    :root{
+      --bg:#FFF7FB;
+      --card:#ffffff;
+      --accent:#FF6B8A;
+      --accent-dark:#E0486E;
+      --mint:#7DE6C6;
+      --gold:#FFD166;
+      --shadow: 0 10px 30px rgba(12,12,30,0.08);
+      --glass: rgba(255,255,255,0.6);
+      --font-sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      --font-script: 'Great Vibes', cursive;
+      --modal-bg: #f7fbff;
+      --modal-primary: #6b8cff;
+      --modal-accent: #ff9bd2;
+      --modal-sun: #ffd166;
+      --modal-mint: #7de2d1;
+      --modal-violet: #b28cff;
+      --modal-ink: #243b53;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Great+Vibes&family=Fredoka:wght@400;500;700&family=Quicksand:wght@400;600;700&display=swap');
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font-sans);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(255, 107, 138, 0.06), transparent 8%),
+        radial-gradient(800px 400px at 90% 90%, rgba(125, 230, 198, 0.04), transparent 6%),
+        var(--bg);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:16px;
+      color:#222;
+    }
+
+    .stage{
+      width:960px;
+      max-width:95vw;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:24px;
+      align-items:start;
+      margin-top:20px;
+    }
+
+    /* card */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+      border-radius:18px;
+      padding:34px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:visible;
+      min-height:420px;
+    }
+
+    .header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      position:relative;
+      z-index:5;
+    }
+
+    .heart{
+      width:68px;
+      height:68px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      color:white;
+      font-weight:700;
+      font-size:28px;
+      box-shadow:0 8px 20px rgba(233,108,130,0.18);
+      transform: rotate(-10deg);
+    }
+
+    .title{
+      font-family:var(--font-script);
+      font-size:40px;
+      line-height:1;
+      margin:0;
+      color:var(--accent-dark);
+      text-shadow: 0 2px 0 rgba(255,255,255,0.6);
+    }
+    .subtitle{
+      margin:4px 0 0 0;
+      color:#555;
+      font-size:14px;
+    }
+
+    .message{
+      margin-top:22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
+      padding:18px;
+      border-radius:12px;
+      border:1px dashed rgba(200,200,200,0.3);
+      font-size:18px;
+      color:#333;
+    }
+
+    .video-container{
+      margin-bottom:16px;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow: 0 4px 12px rgba(12,12,30,0.08);
+      max-height:315px;
+      width:100%;
+    }
+
+    .signature{
+      margin-top:18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .from{
+      font-size:16px;
+      color:#666;
+    }
+    .btn{
+      background: linear-gradient(180deg,var(--accent),var(--accent-dark));
+      color:white;
+      border:none;
+      padding:10px 18px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow: 0 8px 18px rgba(224,72,110,0.18);
+    }
+    .btn:active{transform:translateY(1px)}
+
+    /* right column - decoration */
+    .decor{
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      min-height:420px;
+    }
+
+    .balloons{
+      width:100%;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      align-items:flex-end;
+      padding-top:8px;
+    }
+
+    .balloon{
+      width:92px;
+      height:120px;
+      border-radius:60% 60% 50% 50%;
+      position:relative;
+      display:inline-block;
+      transform-origin:center bottom;
+      animation: float 4s ease-in-out infinite;
+      box-shadow: 0 10px 20px rgba(12,12,30,0.06);
+    }
+    .balloon:nth-child(1){background:linear-gradient(180deg,#FFD166,#FF9AA2); animation-duration:4.6s; transform: translateY(0) rotate(-6deg)}
+    .balloon:nth-child(2){background:linear-gradient(180deg,#7DE6C6,#4FCFB1); width:76px; animation-duration:3.9s; transform: translateY(0) rotate(4deg)}
+    .balloon:nth-child(3){background:linear-gradient(180deg,#A0C4FF,#7D9BFF); width:84px; animation-duration:5.2s; transform: translateY(0) rotate(-2deg)}
+
+    .balloon::after{
+      content:'';
+      position:absolute;
+      bottom:-28px;
+      left:50%;
+      transform:translateX(-50%);
+      width:2px;height:40px;
+      background:linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.08));
+      border-radius:2px;
+    }
+
+    @keyframes float{
+      0%{transform:translateY(0) rotate(-4deg)}
+      50%{transform:translateY(-18px) rotate(4deg)}
+      100%{transform:translateY(0) rotate(-4deg)}
+    }
+
+    .garland{
+      width:100%;
+      height:80px;
+      position:absolute;
+      top:-26px;
+      left:0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:6px;
+      padding:0 8px;
+    }
+    .flag{
+      width:50px;height:26px;border-radius:6px;background:linear-gradient(180deg,var(--gold),#FFD49A);
+      transform:skewX(-12deg);
+      box-shadow:0 6px 12px rgba(12,12,30,0.06);
+    }
+
+    /* confetti canvas full overlay */
+    #confetti-canvas{
+      position:fixed;
+      pointer-events:none;
+      top:0;left:0;
+      width:100%;height:100%;
+      z-index:1;
+    }
+
+    /* footer small note */
+    .small{
+      margin-top:12px;
+      font-size:13px;color:#777;
+      text-align:center;
+    }
+
+    /* modal styles */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.5);
+      z-index:100;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .modal.active{display:flex;}
+    .modal-card{
+      position:relative;
+      width:min(900px, 96vw);
+      background:#fff;
+      border-radius:28px;
+      box-shadow: 0 20px 50px rgba(20,40,60,.12);
+      overflow:hidden;
+      border: 3px solid #eef2ff;
+      max-height:90vh;
+      overflow-y:auto;
+    }
+    .modal-header{
+      padding: clamp(16px, 3vw, 28px);
+      background: linear-gradient(135deg, #e9f0ff, #fff0f6);
+      display:flex;
+      gap: clamp(16px, 2.5vw, 28px);
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .modal-title{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .modal-badge{
+      background: #fff;
+      border:2px dashed var(--modal-primary);
+      color:var(--modal-primary);
+      font-weight:700;
+      border-radius: 999px;
+      padding:8px 14px;
+      font-size:14px;
+    }
+    .modal-h1{
+      font-family: "Fredoka", system-ui;
+      font-size: clamp(26px, 4.8vw, 48px);
+      line-height:1.05;
+      margin:0;
+      letter-spacing:.3px;
+    }
+    .modal-age{
+      font-size: clamp(18px, 3.5vw, 28px);
+      color: var(--modal-accent);
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .modal-content{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
+      padding: clamp(16px, 3vw, 28px);
+    }
+    @media (max-width: 820px){
+      .modal-content{ grid-template-columns: 1fr; }
+    }
+    .modal-message{
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border:2px solid #edf2ff;
+      border-radius:24px;
+      padding: clamp(16px, 2.5vw, 24px);
+    }
+    .modal-message p{
+      margin: 0 0 12px;
+      font-size: clamp(15px, 2.4vw, 18px);
+    }
+    .modal-message .big{
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight:700;
+    }
+    .modal-photo{
+      position:relative;
+      background: #f6fbff;
+      border:2px dashed #d9e4ff;
+      border-radius:24px;
+      padding:16px;
+      display:grid;
+      place-items:center;
+    }
+    .modal-photo .frame{
+      width:100%;
+      aspect-ratio: 1 / 1;
+      border-radius:20px;
+      background: #fff;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      box-shadow: inset 0 0 0 10px #f0f6ff;
+    }
+    .modal-photo img{
+      max-width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .modal-footer{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      padding: clamp(16px, 3vw, 24px);
+      border-top:1px solid #eef3ff;
+      background: #fafcff;
+    }
+    .modal-chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .modal-chip{
+      padding:8px 12px;
+      background:#f1f6ff;
+      border-radius:999px;
+      font-size:14px;
+      border:1px solid #e6eeff;
+    }
+    .modal-btns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .modal-btn{
+      border:0;
+      border-radius:999px;
+      padding:12px 16px;
+      font-weight:700;
+      cursor:pointer;
+      font-family:inherit;
+      box-shadow: 0 10px 20px rgba(107,140,255,.18);
+      transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .modal-primary{
+      background:var(--modal-primary);
+      color:#fff;
+    }
+    .modal-ghost{
+      background:#fff;
+      border:2px solid #e6eeff;
+    }
+    .modal-btn:active{
+      transform: translateY(1px) scale(.995);
+    }
+    .modal-balloon{
+      position:absolute;
+      width:44px;
+      height:54px;
+      border-radius: 50% 50% 45% 45%;
+      opacity:.9;
+      filter: drop-shadow(0 10px 12px rgba(0,0,0,.08));
+      animation: float 12s ease-in-out infinite;
+    }
+    .modal-balloon::after{
+      content:"";
+      position:absolute;
+      bottom:-18px;
+      left:50%;
+      width:2px;
+      height:24px;
+      background:#cfd7ff;
+      transform: translateX(-50%);
+    }
+    .modal-b1{ background:var(--modal-accent); left: 6%; top: 64%; animation-delay:-2s; }
+    .modal-b2{ background:var(--modal-mint); left: 86%; top: 22%; animation-delay:-6s; }
+    .modal-b3{ background:var(--modal-sun); left: 12%; top: 10%; animation-delay:-4s; }
+    .modal-b4{ background:var(--modal-violet); left: 78%; top: 78%; animation-delay:-8s; }
+    .modal-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      background: #fff;
+      border: 2px solid #e6eeff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 18px;
+      z-index: 101;
+    }
+    .modal-confetti{
+      position: fixed;
+      inset:0;
+      pointer-events:none;
+      z-index: 10;
+    }
+    .modal-signature{
+      font-family: "Fredoka";
+      font-size: 16px;
+      opacity:.75;
+    }
+    .modal-music-player{
+      display: none;
+    }
+    /* responsive */
+    @media (max-width:880px){
+      .stage{grid-template-columns: 1fr; align-items:start}
+      .decor{order:-1}
+      .header{
+        margin-top:20px;
+      }
+      .video-container{
+        max-height:200px;
+      }
+      .video-container iframe{
+        height:200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="stage" role="main" aria-label="Tarjeta de cumpleaños">
+    <section class="card" aria-labelledby="titulo">
+      <div class="header">
+        <div class="heart">❤</div>
+        <div>
+          <h1 id="titulo" class="title">¡Feliz cumpleaños!</h1>
+          <p class="subtitle">Para Yandel — con todo mi corazón</p>
+        </div>
+      </div>
+
+      <div class="message" id="mensaje">
+        <div class="video-container">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/23wz86ZbD-o?autoplay=1&mute=1&loop=1&playlist=23wz86ZbD-o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <p style="margin:0 0 8px 0;">
+          Hoy celebramos que llegaste al mundo para hacerlo más lindo. Gracias por cada abrazo, risa y por ser mi compañero, por llenarme siempre de amor, por cada palabra bonita, por cada sonrisa, por todo...Hoy 2 de septiembre es tu hermoso cumple mi niño, y en este dia espero que celebres feliz, que hoy compartas tu dia especial con tu familia, espero que hoy te la pases feliz y bonito al lado de las personas que mas quieres.        </p>
+        <p style="margin:0 0 8px 0;font-weight:600;">
+          Holi holi mi niño hermoso, espero que hayas estado bien y que te hayas cuidado, bueno...hago esto porque bueno...por error mi primita te envio la anterior cartita que te hice y otras cosas que no deberian ser enviadas porque no le dije que las enviara, pero aproveche para mejorarla y hacer otra y bueno espero te guste, nose si aun...me recuerdes...pero sabes? no olvide tu hermoso cumpleaños, por eso quiero desearte un muy bonito feliz cumpleaños, espero te la pases bien y bonito, espero que te la pases con tus seres queridos y al lado de las personas que quieres, quiero tambien decirte...desde que no supe de ti...te pense mucho sabes, y hasta ahora actualmente sigo pensando y preguntandome si estas bien o si estas feliz ya que me importa mucho tu felicidad, quiero...verte feliz, y sabes perdon por todo, perdon por mis padres y eso y pienso...probablemente ya te hartaste o te cansaste de esperar sabes, pero yo...escojo amarte porque asi me lo prometi, te amo con fuerza, te amo con locura, te amo con todo de mi ser...te amo a pesar de no saber si estas bien, te amo a pesar de llorar todos los dias por no saber como estas, te amo porque eres al chico que eleji...eres ese ser al cual eleji y quiero pasar toda una vida a su lado, te amo aunque me duela, te amo aunque me arda el corazon, porque quiero...porlomenos verte feliz, eres ese ser al cual agradezco que haya aparecido en mi vida, te doy gracias, por amarme tal y como soy, gracias por esos hermosos momentos y recuerdos que atesoro y guardo en mi alma, gracias...por amar a esta inutil, desastre...y sin remedio. te amo.
+        </p>
+        <p>Pero en fin, feliz cumpleaños mi niño hermoso, mientras yo exista siempre vas a tener a alguien que este feliz por ti, alguien que se alegre y se preocupe por ti aunquesea en silencio, que te apoye aunque no sepa si estas bien, espero que hoy te la pases bien, que hoy es un dia muy especial para ti, quiero decirte tambien que te amo mucho aunque ya no hayamos hablado,te amo mucho, te mando un abrazo y un besho de cumple, muack, te amo, feliz cumple mi niño, que para mi siempre seras mi niño, muack, te amo un monton.</p>
+        <p>Perdon por no poder mostrarte mi cara y poder darte la carta en la que tanto le puse esmero pero aqui esta esto como reemplazo, espero te guste tambien, lo hice con mi afecto y amor.</p>
+        <p>
+          Te amo muchísimo, Yandel. 
+        </p>
+
+        <div class="signature">
+          <div class="from">Con amor, <strong>Your...Kisy...</strong></div>
+          <button class="btn" id="sorpresaBtn" title="Haz click para lanzar confetti">Ver sorpresa 🎁</button>
+        </div>
+
+        <p class="small">Haz click en cualquier lugar de la tarjeta para más confetti ✨</p>
+      </div>
+    </section>
+
+    <aside class="decor" aria-hidden="false">
+      <div class="garland" aria-hidden="true">
+        <div class="flag"></div><div class="flag" style="background:linear-gradient(180deg,#FFB5E8,#FF8ECC)"></div><div class="flag" style="background:linear-gradient(180deg,#C7CEEA,#98A9FF)"></div>
+      </div>
+
+      <div class="balloons" aria-hidden="true">
+        <div class="balloon" style="filter:drop-shadow(0 6px 10px rgba(255,106,138,0.12))"></div>
+        <div class="balloon" style="filter:drop-shadow(0 6px 10px rgba(77,217,186,0.08))"></div>
+        <div class="balloon" style="filter:drop-shadow(0 6px 10px rgba(124,156,255,0.12))"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:22px;">
+        <div style="font-weight:700;font-size:18px;color:var(--accent-dark)">¡Feliz Cumple!</div>
+        <div style="margin-top:8px;color:#666">Espero hoy en este dia especial celebres feliz ^^.</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Modal for second card -->
+  <div class="modal" id="sorpresaModal">
+    <div class="modal-card" role="article" aria-label="Tarjeta de cumpleaños">
+      <button class="modal-close" aria-label="Cerrar modal">✕</button>
+      <canvas id="modal-confetti"></canvas>
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="modal-badge" id="modal-fecha"></span>
+          <h1 class="modal-h1">¡Feliz Cumple, <span id="modal-nombre">Mi Niño</span>! 🎉</h1>
+        </div>
+        <div class="modal-age">🎂 <span id="modal-edad">8</span></div>
+      </div>
+
+      <div class="modal-content">
+        <section class="modal-message">
+          <p class="big" id="modal-frase">Hoy celebramos tu vida y la magia que traes a nuestro mundo ✨</p>
+          <p id="modal-dedicatoria">Que cada deseo que soplas se vuelva realidad. Gracias por tus risas, tus abrazos y por ser mi mayor orgullo. ¡Te amo infinito! 💖</p>
+          <div class="modal-chips" aria-label="temas">
+            <span class="modal-chip">Salud </span>
+            <span class="modal-chip">Alegría </span>
+            <span class="modal-chip">Aventuras </span>
+            <span class="modal-chip">Amor</span>
+          </div>
+        </section>
+
+        <aside class="modal-photo">
+          <div class="frame">
+            <img id="modal-foto" src="Cherry crush.jpg" alt="cherry crush jpg" />
+          </div>
+        </aside>
+      </div>
+
+      <div class="modal-footer">
+        <span class="modal-signature">Con todo mi amor, <span id="modal-firma">Kisy...</span> 💕</span>
+        <div class="modal-btns">
+          <button class="modal-ghost" id="modal-btnMusica" aria-label="Reproducir música">▶️ Música</button>
+        </div>
+      </div>
+
+      <div class="modal-balloon modal-b1"></div>
+      <div class="modal-balloon modal-b2"></div>
+      <div class="modal-balloon modal-b3"></div>
+      <div class="modal-balloon modal-b4"></div>
+
+      <div class="modal-music-player">
+        <iframe id="modal-youtube-player" width="0" height="0" src="https://www.youtube.com/embed/7-Ikexq03O0?autoplay=0&mute=0&loop=1&playlist=7-Ikexq03O0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    // ---- Main Card Confetti ----
+    (function(){
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      const particles = [];
+      const colors = ['#FF6B8A','#FFD166','#7DE6C6','#A0C4FF','#FF9AA2'];
+
+      function random(min,max){ return Math.random()*(max-min)+min }
+
+      function makeParticles(x,y,amount=60){
+        for(let i=0;i<amount;i++){
+          particles.push({
+            x: x + random(-30,30),
+            y: y + random(-30,30),
+            vx: random(-6,6),
+            vy: random(-10, -2),
+            size: random(6,12),
+            color: colors[Math.floor(Math.random()*colors.length)],
+            rot: random(0,360),
+            rotSpeed: random(-10,10),
+            life: 0,
+            ttl: random(60,110)
+          });
+        }
+      }
+
+      function render(){
+        ctx.clearRect(0,0,W,H);
+        for(let i=particles.length-1;i>=0;i--){
+          const p = particles[i];
+          p.life++;
+          if(p.life>p.ttl){ particles.splice(i,1); continue }
+          p.vy += 0.25; // gravity
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.rotSpeed;
+          ctx.save();
+          ctx.translate(p.x,p.y);
+          ctx.rotate(p.rot * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+          ctx.restore();
+        }
+        requestAnimationFrame(render);
+      }
+
+      window.addEventListener('resize', () => {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      });
+
+      document.addEventListener('click', (e) => {
+        makeParticles(e.clientX, e.clientY, 60);
+      });
+
+      makeParticles(window.innerWidth*0.65, window.innerHeight*0.3, 30);
+      render();
+    })();
+
+    // ---- Modal Card Confetti ----
+    (function(){
+      const $c = document.getElementById('modal-confetti');
+      const ctx = $c.getContext('2d');
+      let W, H;
+      let pieces = [];
+      let frame;
+      const colors = ['#6b8cff', '#ff9bd2', '#ffd166', '#7de2d1', '#b28cff'];
+
+      function resize(){ W = $c.width = innerWidth; H = $c.height = innerHeight; }
+      addEventListener('resize', resize); resize();
+
+      function spawn(n=120){
+        for(let i=0; i<n; i++){
+          pieces.push({
+            x: Math.random()*W,
+            y: -20 - Math.random()*H,
+            s: 6+Math.random()*8,
+            r: Math.random()*Math.PI,
+            v: 1+Math.random()*2,
+            c: colors[(Math.random()*colors.length)|0]
+          });
+        }
+      }
+
+      function draw(){
+        ctx.clearRect(0,0,W,H);
+        for(const p of pieces){
+          p.y += p.v; p.r += 0.02; p.x += Math.sin(p.r)*0.3;
+          if(p.y > H+20) { p.y = -20; p.x = Math.random()*W; }
+          ctx.save();
+          ctx.translate(p.x, p.y); ctx.rotate(p.r);
+          ctx.fillStyle = p.c;
+          ctx.fillRect(-p.s/2, -p.s/2, p.s, p.s*0.6);
+          ctx.restore();
+        }
+        frame = requestAnimationFrame(draw);
+      }
+
+      spawn(180); draw();
+    })();
+
+    // ---- Modal Logic ----
+    const modal = document.getElementById('sorpresaModal');
+    const sorpresaBtn = document.getElementById('sorpresaBtn');
+    const closeBtn = document.querySelector('.modal-close');
+
+    sorpresaBtn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      modal.classList.add('active');
+      // Original confetti burst
+      const x = window.innerWidth * 0.5;
+      const y = window.innerHeight * 0.35;
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      const colors = ['#FF6B8A','#FFD166','#7DE6C6','#A0C4FF','#FF9AA2'];
+      function random(min,max){ return Math.random()*(max-min)+min }
+      for(let i=0;i<140;i++){
+        const p = {
+          x: x + random(-30,30),
+          y: y + random(-30,30),
+          vx: random(-6,6),
+          vy: random(-10, -2),
+          size: random(6,12),
+          color: colors[Math.floor(Math.random()*colors.length)],
+          rot: random(0,360),
+          rotSpeed: random(-10,10),
+          life: 0,
+          ttl: random(60,110)
+        };
+        const particles = window.particles || (window.particles = []);
+        particles.push(p);
+      }
+      // Original audio chime
+      try {
+        const aCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = aCtx.createOscillator(), g = aCtx.createGain();
+        o.type = 'sine';
+        o.frequency.value = 880;
+        g.gain.value = 0.05;
+        o.connect(g); g.connect(aCtx.destination);
+        o.start();
+        o.frequency.exponentialRampToValueAtTime(660, aCtx.currentTime + 0.15);
+        g.gain.exponentialRampToValueAtTime(0.0001, aCtx.currentTime + 0.18);
+        o.stop(aCtx.currentTime + 0.19);
+      } catch(e){ /* audio may be blocked on some browsers */ }
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+      // Pause music when closing modal
+      if (player) {
+        player.pauseVideo();
+        document.getElementById('modal-btnMusica').textContent = '▶️ Música';
+      }
+    });
+
+    // ---- Modal Personalization ----
+    const DATA = {
+      nombre: "Mi Niño",
+      edad: 16,
+      dedicatoria: "que cada deseo que pidas se haga realidad, que todos tus sueños se hagan realidad, te amo mas de lo que puedas imaginar, pasatela bonito en tu cumple, sonrie y se feliz porque hoy es tu dia mi niño, feliz cumple, pasatela bonito, cuidate, no te me enfermes, come bien, abrigate si hace frio, duerme bien, que te baya bien en tu tareita y recuerda, NUNCA olvides que TE AMO, te amo por hoy y para toda mi vida hasta mi ultimo suspiro y latido 💖",
+      frase: "Hoy celebramos tu vida y la magia que traes a mi mundo ✨",
+      firma: "kisy...",
+      fecha: new Date().toLocaleDateString("es-Colombia", { day: "2-digit", month: "long", year: "numeric" }),
+      foto: "Cherry crush.jpg"
+    };
+
+    document.getElementById("modal-nombre").textContent = DATA.nombre;
+    document.getElementById("modal-edad").textContent = DATA.edad;
+    document.getElementById("modal-dedicatoria").textContent = DATA.dedicatoria;
+    document.getElementById("modal-frase").textContent = DATA.frase;
+    document.getElementById("modal-firma").textContent = DATA.firma;
+    document.getElementById("modal-fecha").textContent = DATA.fecha;
+    document.getElementById("modal-foto").src = DATA.foto;
+
+    // ---- YouTube Player API for Modal Music ----
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('modal-youtube-player', {
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      document.getElementById('modal-btnMusica').addEventListener('click', () => {
+        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+          player.pauseVideo();
+          document.getElementById('modal-btnMusica').textContent = '▶️ Música';
+        } else {
+          player.playVideo();
+          document.getElementById('modal-btnMusica').textContent = '⏸️ Pausa';
+        }
+      });
+    }
+
+    // ---- Modal Drag & Drop Image ----
+    const drop = document.querySelector('.modal-photo .frame');
+    drop.addEventListener('dragover', e => {
+      e.preventDefault();
+      drop.style.boxShadow = 'inset 0 0 0 10px #e1f3ff';
+    });
+    drop.addEventListener('dragleave', () => {
+      drop.style.boxShadow = 'inset 0 0 0 10px #f0f6ff';
+    });
+    drop.addEventListener('drop', e => {
+      e.preventDefault();
+      drop.style.boxShadow = 'inset 0 0 0 10px #f0f6ff';
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      document.getElementById('modal-foto').src = url;
+    });
+
+    window.addEventListener('paste', e => {
+      for (const item of e.clipboardData.items) {
+        if (item.type.indexOf('image') === 0) {
+          const file = item.getAsFile();
+          const url = URL.createObjectURL(file);
+          document.getElementById('modal-foto').src = url;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
